@@ -9,7 +9,7 @@ import React, {
 import toast from "react-hot-toast";
 import { Song } from "./SongContext";
 
-const playlistServer = "http://localhost:5003";
+const playlistServer = import.meta.env.VITE_PLAYLIST_API;
 
 export interface PlaylistSong {
   songId: string;

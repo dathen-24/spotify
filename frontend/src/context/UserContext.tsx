@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import toast from "react-hot-toast";
 
-const server = "http://localhost:5000";
+const server = import.meta.env.VITE_USER_API;
 
 export interface User {
   _id: string;

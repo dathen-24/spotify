@@ -6,7 +6,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { MdDelete, MdEdit } from "react-icons/md";
 
-const server = "http://localhost:7000";
+const server = import.meta.env.VITE_ADMIN_API;
 
 const Admin = () => {
   const navigate = useNavigate();
