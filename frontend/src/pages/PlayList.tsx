@@ -48,26 +48,18 @@ const PlayList = () => {
   const currentPlaylist = playlists.find((p) => p._id === id);
   const currentSongs = currentPlaylist?.songs || [];
 
-  const validSongs = currentSongs.filter(
-  (playlistSong) =>
-    songs.some(
-      (song) =>
-        String(song.id) ===
-        String(playlistSong.songId)
-    )
-);
+  const validSongs = currentSongs.filter((playlistSong) =>
+    songs.some((song) => String(song.id) === String(playlistSong.songId))
+  );
 
-const playlistQueue = validSongs
-  .map((playlistSong) =>
-    songs.find(
-      (song) =>
-        String(song.id) ===
-        String(playlistSong.songId)
+  // SỬA LỖI TYPESCRIPT Ở ĐÂY: Ép kiểu để báo TypeScript mảng này không còn undefined
+  const playlistQueue = validSongs
+    .map((playlistSong) =>
+      songs.find((song) => String(song.id) === String(playlistSong.songId))
     )
-  )
-  .filter(Boolean);
+    .filter((song): song is typeof songs[number] => song !== undefined);
 
-  // 3. ĐỊNH NGHĨA CÁC HÀM XỬ LÝ (Sau khi đã có biến)
+  // 3. ĐỊNH NGHĨA CÁC HÀM XỬ LÝ
   const handleDeletePlaylist = async () => {
     if (!currentPlaylist) return;
     await deletePlaylist(currentPlaylist._id);
@@ -206,36 +198,47 @@ const playlistQueue = validSongs
             This playlist is empty
           </p>
         ) : (
-          validSongs.map((song, index) => {
+          validSongs.map((playlistItem, index) => {
+            // SỬA LỖI GIAO DIỆN Ở ĐÂY: Tìm chi tiết bài hát từ mảng songs
+            const songDetail = songs.find(
+              (s) => String(s.id) === String(playlistItem.songId)
+            );
+
+            // Nếu không tìm thấy thông tin bài hát thì bỏ qua
+            if (!songDetail) return null;
+
             return (
               <div
-                key={song.songId}
+                key={playlistItem.songId}
                 onClick={() => {
                   setQueue(playlistQueue);
                   setCurrentIndex(index);
                   setIsPlaying(true);
                 }}
-                className="grid grid-cols-[60px_2fr_2fr_120px] items-center px-4 py-3 rounded-lg hover:bg-white/10 transition"
+                className="grid grid-cols-[60px_2fr_2fr_120px] items-center px-4 py-3 rounded-lg hover:bg-white/10 transition cursor-pointer"
               >
                 <p>{index + 1}</p>
 
                 <div className="flex items-center gap-4">
                   <img
-                    src={song.thumbnail}
+                    src={songDetail.thumbnail}
                     className="w-12 h-12 rounded object-cover"
                     alt=""
                   />
-                  <p className="text-white">{song.title}</p>
+                  <p className="text-white">{songDetail.title}</p>
                 </div>
 
-                <p className="truncate text-zinc-400">{song.description}</p>
+                <p className="truncate text-zinc-400">{songDetail.description}</p>
 
                 <div className="flex items-center gap-4">
                   <button
-                    className="text-white"
+                    className="text-white hover:text-red-500 transition"
                     onClick={(e) => {
                       e.stopPropagation();
-                      removeSongFromPlaylist(currentPlaylist._id, song.songId);
+                      removeSongFromPlaylist(
+                        currentPlaylist._id,
+                        playlistItem.songId
+                      );
                     }}
                   >
                     <FaTrash />
