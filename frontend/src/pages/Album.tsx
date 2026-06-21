@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import Layout from "../components/Layout";
 import { Song, useSongData } from "../context/SongContext";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
