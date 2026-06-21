@@ -121,7 +121,8 @@ const playlistQueue = currentSongs
   .map((playlistSong) =>
     songs.find(
       (song) =>
-        song.id === playlistSong.songId
+        String(song.id) ===
+        String(playlistSong.songId)
     )
   )
   .filter(
