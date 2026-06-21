@@ -130,6 +130,14 @@ const playlistQueue = currentSongs
       song !== undefined
   );
 
+  useEffect(() => {
+  console.log("PLAYER MOUNT");
+
+  return () => {
+    console.log("PLAYER UNMOUNT");
+  };
+}, []);
+
   console.log("ALL SONGS", songs);
 
 console.log(
