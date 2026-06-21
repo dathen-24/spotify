@@ -16,23 +16,23 @@ const App = () => {
         <Loading />
       ) : (
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/album/:id" element={<Album />} />
-            <Route
-              path="/playlist/:id"
-              element={isAuth ? <PlayList /> : <Login />}
-            />
-            <Route
-              path="/admin/dashboard"
-              element={isAuth ? <Admin /> : <Login />}
-            />
-            <Route path="/login" element={isAuth ? <Home /> : <Login />} />
-            <Route
-              path="/register"
-              element={isAuth ? <Home /> : <Register />}
-            />
-          </Routes>
+<Route element={<Layout />}>
+  <Route path="/" element={<Home />} />
+
+  <Route
+    path="/album/:id"
+    element={<Album />}
+  />
+
+  <Route
+    path="/playlist/:id"
+    element={
+      isAuth
+        ? <PlayList />
+        : <Login />
+    }
+  />
+</Route>
         </BrowserRouter>
       )}
     </>
