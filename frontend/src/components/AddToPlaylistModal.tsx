@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Song } from "../context/SongContext";
+import { Song, useSongData } from "../context/SongContext";
 import { usePlaylistData } from "../context/PlaylistContext";
 import { FaTimes } from "react-icons/fa";
 
@@ -23,6 +23,12 @@ const AddToPlaylistModal: React.FC<AddToPlaylistModalProps> = ({
   useEffect(() => {
     fetchMyPlaylists();
   }, []);
+
+  const { songs } = useSongData();
+
+  const songIds = new Set(
+  songs.map((song) => String(song.id))
+);
 
   if (!song) return null;
 
@@ -100,27 +106,36 @@ const AddToPlaylistModal: React.FC<AddToPlaylistModalProps> = ({
             </div>
           ) : (
             <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1">
-              {playlists.map((playlist) => (
-                <button
-                  key={playlist._id}
-                  onClick={() => handleAddToPlaylist(playlist._id)}
-                  className="
-              w-full
-              p-4
-              rounded-xl
-              bg-zinc-800
-              hover:bg-zinc-700
-              transition-all
-              text-left
-            "
-                >
-                  <p className="font-semibold text-white">{playlist.name}</p>
+{playlists.map((playlist) => {
+  const validSongCount = playlist.songs.filter(
+    (playlistSong) =>
+      songIds.has(String(playlistSong.songId))
+  ).length;
 
-                  <p className="text-sm text-zinc-400 mt-1">
-                    {playlist.songs.length} songs
-                  </p>
-                </button>
-              ))}
+  return (
+    <button
+      key={playlist._id}
+      onClick={() => handleAddToPlaylist(playlist._id)}
+      className="
+        w-full
+        p-4
+        rounded-xl
+        bg-zinc-800
+        hover:bg-zinc-700
+        transition-all
+        text-left
+      "
+    >
+      <p className="font-semibold text-white">
+        {playlist.name}
+      </p>
+
+      <p className="text-sm text-zinc-400 mt-1">
+        {validSongCount} songs
+      </p>
+    </button>
+  );
+})}
             </div>
           )}
         </div>
