@@ -129,6 +129,18 @@ const playlistQueue = currentSongs
       song !== undefined
   );
 
+  console.log("ALL SONGS", songs);
+
+console.log(
+  "PLAYLIST SONGS",
+  currentSongs
+);
+
+console.log(
+  "PLAYLIST QUEUE",
+  playlistQueue
+);
+
     if (
   !playlistLoading &&
   playlists.length > 0 &&
