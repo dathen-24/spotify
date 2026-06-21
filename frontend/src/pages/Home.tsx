@@ -11,7 +11,6 @@ const Home = () => {
       {loading ? (
         <Loading />
       ) : (
-        <Layout>
           <div className="mb-4">
             <h1 className="my-5 font-bold text-2xl">Featured Charts</h1>
             <div
@@ -65,7 +64,6 @@ const Home = () => {
               })}
             </div>
           </div>
-        </Layout>
       )}
     </div>
   );
