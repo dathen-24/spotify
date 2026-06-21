@@ -264,7 +264,7 @@ const openEditSong = (song: any) => {
 );
 
     if (editSongFile) {
-      formData.append("file", editSongFile);
+      formData.append("audio", editSongFile);
     }
 
     if (editSongThumbnail) {
