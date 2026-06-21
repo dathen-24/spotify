@@ -48,11 +48,24 @@ const PlayList = () => {
   const currentPlaylist = playlists.find((p) => p._id === id);
   const currentSongs = currentPlaylist?.songs || [];
 
-  const playlistQueue = currentSongs
-    .map((playlistSong) =>
-      songs.find((song) => String(song.id) === String(playlistSong.songId))
+  const validSongs = currentSongs.filter(
+  (playlistSong) =>
+    songs.some(
+      (song) =>
+        String(song.id) ===
+        String(playlistSong.songId)
     )
-    .filter((song) => song !== undefined);
+);
+
+const playlistQueue = validSongs
+  .map((playlistSong) =>
+    songs.find(
+      (song) =>
+        String(song.id) ===
+        String(playlistSong.songId)
+    )
+  )
+  .filter(Boolean);
 
   // 3. ĐỊNH NGHĨA CÁC HÀM XỬ LÝ (Sau khi đã có biến)
   const handleDeletePlaylist = async () => {
@@ -193,7 +206,7 @@ const PlayList = () => {
             This playlist is empty
           </p>
         ) : (
-          currentSongs.map((song, index) => {
+          validSongs.map((song, index) => {
             return (
               <div
                 key={song.songId}
