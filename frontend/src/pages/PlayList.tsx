@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/Layout";
 import { useSongData } from "../context/SongContext";
 import { useUserData } from "../context/UserContext";
 import { usePlaylistData } from "../context/PlaylistContext";
@@ -83,7 +82,7 @@ const PlayList = () => {
     setShowEditModal(false);
   };
 
-  const handleCoverUpload = async (e) => {
+  const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -110,11 +109,11 @@ const PlayList = () => {
   // Nếu loading xong mà không tìm thấy playlist
   if (!currentPlaylist) {
     return (
-      <Layout>
+      <>
         <div className="mt-20 text-center text-zinc-400">
           Playlist not found
         </div>
-      </Layout>
+      </>
     );
   }
 
