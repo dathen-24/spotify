@@ -48,7 +48,7 @@ const PlayList = () => {
   const currentPlaylist = playlists.find((p) => p._id === id);
   const currentSongs = currentPlaylist?.songs || [];
 
-  const s = currentSongs.filter((playlistSong) =>
+  const validSongs = currentSongs.filter((playlistSong) =>
     songs.some((song) => String(song.id) === String(playlistSong.songId))
   );
 
