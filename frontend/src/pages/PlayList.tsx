@@ -48,12 +48,12 @@ const PlayList = () => {
   const currentPlaylist = playlists.find((p) => p._id === id);
   const currentSongs = currentPlaylist?.songs || [];
 
-  const validSongs = currentSongs.filter((playlistSong) =>
+  const s = currentSongs.filter((playlistSong) =>
     songs.some((song) => String(song.id) === String(playlistSong.songId))
   );
 
   // SỬA LỖI TYPESCRIPT Ở ĐÂY: Ép kiểu để báo TypeScript mảng này không còn undefined
-const playlistQueue: Song[] = validSongs
+const playlistQueue: Song[] = s
   .map((playlistSong) =>
     songs.find(
       (song) =>
@@ -154,7 +154,7 @@ const playlistQueue: Song[] = validSongs
               {currentPlaylist?.description}
             </p>
             <div className="flex items-center gap-4 mt-4 text-zinc-400">
-              <span>{validSongs?.songs.length} songs</span>
+              <span>{validSongs.length} songs</span>
               <span>•</span>
               <div className="flex items-center gap-2">
                 {currentPlaylist?.isPublic ? <FaGlobeAmericas /> : <FaLock />}
