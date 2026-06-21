@@ -33,7 +33,6 @@ const Album = () => {
   }, [params.id]);
   return (
     <div>
-      <Layout>
         {albumData && (
           <>
             {loading ? (
@@ -239,7 +238,6 @@ setIsPlaying(true);
           song={selectedPlaylistSong}
           onClose={() => setSelectedPlaylistSong(null)}
         />
-      </Layout>
     </div>
   );
 };
