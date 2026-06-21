@@ -2,6 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useUserData } from "../context/UserContext";
 import { usePlaylistData } from "../context/PlaylistContext";
 import { useState } from "react";
+import { useSongData } from "../context/SongContext";
+
+const { songs } = useSongData();
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -84,6 +87,14 @@ const Sidebar = () => {
           ) : (
             <div className="space-y-2 overflow-y-auto">
               {playlists.map((playlist) => (
+              const validSongCount = playlist.songs.filter(
+  (playlistSong) =>
+    songs.some(
+      (song) =>
+        String(song.id) ===
+        String(playlistSong.songId)
+    )
+).length;
                 <div
                   key={playlist._id}
                   onClick={() =>
@@ -98,7 +109,7 @@ const Sidebar = () => {
                   </p>
 
                   <p className="text-xs text-zinc-400">
-                    {playlist.songs.length} songs
+                    {validSongCount} songs
                   </p>
                 </div>
               ))}
