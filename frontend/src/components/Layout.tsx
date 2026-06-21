@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Player from "./Player";
+import { Outlet } from "react-router-dom";
 
 interface LayoutProps {
   children: ReactNode;
@@ -25,7 +26,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         >
           <Navbar />
 
-          <div className="px-6 pb-8">{children}</div>
+          <div className="px-6 pb-8">
+          <Outlet />  
+          </div>
         </main>
       </div>
       <Player />
