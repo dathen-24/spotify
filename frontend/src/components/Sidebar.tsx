@@ -114,8 +114,8 @@ const { songs } = useSongData();
                   </div>
                 );
               })}
-            </div> /* <--- 1. ADD THIS CLOSING DIV */
-          )}     /* <--- 2. ADD THIS CLOSING BRACKET FOR THE TERNARY */
+            </div>
+          )}     
 
           {user?.role === "admin" && (
             <button
