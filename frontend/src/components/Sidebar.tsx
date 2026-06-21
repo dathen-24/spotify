@@ -80,40 +80,42 @@ const { songs } = useSongData();
             </div>
           </div>
 
-          {playlists.length === 0 ? (
+{playlists.length === 0 ? (
             <div className="text-zinc-400 text-sm">
               No playlists yet
             </div>
           ) : (
             <div className="space-y-2 overflow-y-auto">
               {playlists.map((playlist) => {
-  const validSongCount = playlist.songs.filter(
-    (playlistSong) =>
-      songs.some(
-        (song) =>
-          String(song.id) ===
-          String(playlistSong.songId)
-      )
-  ).length;
+                const validSongCount = playlist.songs.filter(
+                  (playlistSong) =>
+                    songs.some(
+                      (song) =>
+                        String(song.id) ===
+                        String(playlistSong.songId)
+                    )
+                ).length;
 
-  return (
-    <div
-      key={playlist._id}
-      onClick={() =>
-        navigate(`/playlist/${playlist._id}`)
-      }
-      className="p-3 rounded-lg hover:bg-zinc-800 cursor-pointer transition"
-    >
-      <p className="font-medium truncate">
-        {playlist.name}
-      </p>
+                return (
+                  <div
+                    key={playlist._id}
+                    onClick={() =>
+                      navigate(`/playlist/${playlist._id}`)
+                    }
+                    className="p-3 rounded-lg hover:bg-zinc-800 cursor-pointer transition"
+                  >
+                    <p className="font-medium truncate">
+                      {playlist.name}
+                    </p>
 
-      <p className="text-xs text-zinc-400">
-        {validSongCount} songs
-      </p>
-    </div>
-  );
-})}
+                    <p className="text-xs text-zinc-400">
+                      {validSongCount} songs
+                    </p>
+                  </div>
+                );
+              })}
+            </div> /* <--- 1. ADD THIS CLOSING DIV */
+          )}     /* <--- 2. ADD THIS CLOSING BRACKET FOR THE TERNARY */
 
           {user?.role === "admin" && (
             <button
