@@ -166,7 +166,6 @@ console.log(
   );
 }
   return (
-    <Layout>
       {playlistLoading ? (
         <Loading />
       ) : (
@@ -527,7 +526,6 @@ onClick={() => {
     </div>
   </div>
 )}
-    </Layout>
   );
 };
 
