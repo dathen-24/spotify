@@ -53,7 +53,7 @@ const PlayList = () => {
   );
 
   // SỬA LỖI TYPESCRIPT Ở ĐÂY: Ép kiểu để báo TypeScript mảng này không còn undefined
-const playlistQueue: Song[] = s
+const playlistQueue: Song[] = validSongs
   .map((playlistSong) =>
     songs.find(
       (song) =>
@@ -208,7 +208,7 @@ const playlistQueue: Song[] = s
           validSongs.map((playlistItem, index) => {
             // SỬA LỖI GIAO DIỆN Ở ĐÂY: Tìm chi tiết bài hát từ mảng songs
             const songDetail = songs.find(
-              (s) => String(s.id) === String(playlistItem.songId)
+              (validSongs) => String(validSongs.id) === String(playlistItem.songId)
             );
 
             // Nếu không tìm thấy thông tin bài hát thì bỏ qua
