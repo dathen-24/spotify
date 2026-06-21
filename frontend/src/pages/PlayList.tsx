@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSongData } from "../context/SongContext";
+import { Song, useSongData } from "../context/SongContext";
 import { useUserData } from "../context/UserContext";
 import { usePlaylistData } from "../context/PlaylistContext";
 import { FaBookmark, FaPlay, FaTrash, FaEdit, FaGlobeAmericas, FaLock } from "react-icons/fa";
@@ -53,11 +53,18 @@ const PlayList = () => {
   );
 
   // SỬA LỖI TYPESCRIPT Ở ĐÂY: Ép kiểu để báo TypeScript mảng này không còn undefined
-  const playlistQueue = validSongs
-    .map((playlistSong) =>
-      songs.find((song) => String(song.id) === String(playlistSong.songId))
+const playlistQueue: Song[] = validSongs
+  .map((playlistSong) =>
+    songs.find(
+      (song) =>
+        String(song.id) ===
+        String(playlistSong.songId)
     )
-    .filter((song): song is typeof songs[number] => song !== undefined);
+  )
+  .filter(
+    (song): song is Song =>
+      song !== undefined
+  );
 
   // 3. ĐỊNH NGHĨA CÁC HÀM XỬ LÝ
   const handleDeletePlaylist = async () => {
@@ -147,7 +154,7 @@ const PlayList = () => {
               {currentPlaylist?.description}
             </p>
             <div className="flex items-center gap-4 mt-4 text-zinc-400">
-              <span>{currentPlaylist?.songs.length} songs</span>
+              <span>{validSongs?.songs.length} songs</span>
               <span>•</span>
               <div className="flex items-center gap-2">
                 {currentPlaylist?.isPublic ? <FaGlobeAmericas /> : <FaLock />}
@@ -193,7 +200,7 @@ const PlayList = () => {
 
         <hr />
 
-        {currentSongs.length === 0 ? (
+        {validSongs.length  === 0 ? (
           <p className="text-center mt-10 text-slate-400">
             This playlist is empty
           </p>
