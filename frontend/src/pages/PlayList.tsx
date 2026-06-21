@@ -12,8 +12,12 @@ import axios from "axios";
 const playlistServer = import.meta.env.VITE_PLAYLIST_API;
 
 const PlayList = () => {
-  const { setIsPlaying, setQueue,
-  setCurrentIndex, } = useSongData();
+  const {
+  songs,
+  setIsPlaying,
+  setQueue,
+  setCurrentIndex,
+} = useSongData();
   const { isAuth } = useUserData();
 
   const handleDeletePlaylist = async () => {
@@ -113,16 +117,17 @@ const { data } = await axios.post(
   setEditCoverImage(data.imageUrl);
 };
 
-const playlistQueue = currentSongs.map(
-  (s) => ({
-    id: s.songId,
-    title: s.title,
-    description: s.description || "",
-    thumbnail: s.thumbnail || "",
-    audio: s.audio || "",
-    album: "",
-  })
-);
+const playlistQueue = currentSongs
+  .map((playlistSong) =>
+    songs.find(
+      (song) =>
+        song.id === playlistSong.songId
+    )
+  )
+  .filter(
+    (song): song is typeof songs[number] =>
+      song !== undefined
+  );
 
     if (
   !playlistLoading &&
