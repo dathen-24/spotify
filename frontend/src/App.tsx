@@ -3,36 +3,30 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { useUserData } from "./context/UserContext";
 import Loading from "./components/Loading";
-import Register from "./pages/Register";
 import Album from "./pages/Album";
 import PlayList from "./pages/PlayList";
-import Admin from "./pages/Admin";
+import Layout from "./components/Layout"; // <-- Thêm import Layout
 
 const App = () => {
   const { isAuth, loading } = useUserData();
+
   return (
     <>
       {loading ? (
         <Loading />
       ) : (
         <BrowserRouter>
-<Route element={<Layout />}>
-  <Route path="/" element={<Home />} />
-
-  <Route
-    path="/album/:id"
-    element={<Album />}
-  />
-
-  <Route
-    path="/playlist/:id"
-    element={
-      isAuth
-        ? <PlayList />
-        : <Login />
-    }
-  />
-</Route>
+          {/* Bọc các Route bên trong thẻ Routes */}
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/album/:id" element={<Album />} />
+              <Route
+                path="/playlist/:id"
+                element={isAuth ? <PlayList /> : <Login />}
+              />
+            </Route>
+          </Routes>
         </BrowserRouter>
       )}
     </>
